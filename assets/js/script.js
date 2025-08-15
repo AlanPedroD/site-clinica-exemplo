@@ -1,7 +1,38 @@
 // Menu mobile
-document.getElementById('menu-toggle').addEventListener('click', function() {
-    document.querySelector('.nav-list').classList.toggle('active');
+// document.getElementById('menu-toggle').addEventListener('click', function() {
+//     document.querySelector('.nav-list').classList.toggle('active');
+// });
+// Menu mobile
+const menuToggle = document.getElementById('menu-toggle');
+const navList = document.querySelector('.nav-list');
+
+menuToggle.addEventListener('click', function () {
+    navList.classList.toggle('active');
 });
+
+// Fecha o menu ao clicar em um item
+const navLinks = navList.querySelectorAll('a[href^="#"]');
+
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault(); // Evita salto imediato
+
+        const targetId = link.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+
+        if (targetSection) {
+            targetSection.scrollIntoView({
+                behavior: 'smooth'
+            });
+
+            // Fecha o menu após a rolagem
+            setTimeout(() => {
+                navList.classList.remove('active');
+            }, 500); // meio segundo, pode ajustar
+        }
+    });
+});
+
 
 // Formulário (simulação de envio)
 document.getElementById('contact-form').addEventListener('submit', function(e) {
